@@ -1,6 +1,7 @@
 package com.carubardd.market.persistence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "productos")
@@ -26,6 +27,14 @@ public class Producto {
     private Integer cantidadStock;
 
     private Boolean estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
+    private Categoria categoria;
+
+    // No es necesario crear relación con ComprasProducto
+
+
 
     public Integer getIdProducto() {
         return idProducto;
