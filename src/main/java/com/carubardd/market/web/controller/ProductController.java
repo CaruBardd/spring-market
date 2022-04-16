@@ -2,7 +2,10 @@ package com.carubardd.market.web.controller;
 
 import com.carubardd.market.domain.Product;
 import com.carubardd.market.domain.service.ProductService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,30 +19,38 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/show/all")
-    public List<Product> getAll() {
-        return productService.getAll();
+    public ResponseEntity<List<Product>> getAll() {
+        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/show/{id}")
-    public Optional<Product> getProduct(@PathVariable("id") int productId) {
-        return productService.getProduct(productId);
+    public ResponseEntity<Product> getProduct(@PathVariable("id") int productId) {
+        return productService.getProduct(productId)
+                .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/show/category/{id}")
-    public Optional<List<Product>> getByCategory(@PathVariable("id") int categoryId) {
-        return productService.getByCategory(categoryId);
+    public ResponseEntity<List<Product>> getByCategory(@PathVariable("id") int categoryId) {
+        return productService.getByCategory(categoryId)
+                .map(products -> new ResponseEntity<>(products, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/new")
-    public Product save (
+    public ResponseEntity<Product> save (
             @RequestBody Product product
     ) {
-        return productService.save(product);
+        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete (@PathVariable("id") int productId) {
-        return productService.delete(productId);
+    public ResponseEntity<?> delete (@PathVariable("id") int productId) {
+        if(productService.delete(productId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
