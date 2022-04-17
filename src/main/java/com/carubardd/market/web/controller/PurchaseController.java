@@ -2,7 +2,10 @@ package com.carubardd.market.web.controller;
 
 import com.carubardd.market.domain.Purchase;
 import com.carubardd.market.domain.service.PurchaseService;
-import org.apache.coyote.Response;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,26 +21,52 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     @GetMapping("/show/all")
+    @ApiOperation("Get all the Purchases")
+    @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<List<Purchase>> getAll() {
         return new ResponseEntity<>(purchaseService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/show/client/{id}")
-    public ResponseEntity<List<Purchase>> getByClient(@PathVariable("id") String clientId) {
+    @ApiOperation("Show the purchases from a Client ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Client not found")
+    })
+    public ResponseEntity<List<Purchase>> getByClient(
+            @ApiParam(value = "Client ID", required = true, example = "4546221")
+            @PathVariable("id")
+                    String clientId
+    ) {
         return purchaseService.getByClient(clientId)
                 .map(compras -> new ResponseEntity<>(compras, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/show/purchase/{id}")
-    public ResponseEntity<Purchase> getByPurchase(@PathVariable("id") int purchaseId) {
+    @ApiOperation("Show a purchase with an ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Purchase Not Found")
+    })
+    public ResponseEntity<Purchase> getByPurchase(
+            @ApiParam(value = "Purchase ID", required = true, example = "3")
+            @PathVariable("id")
+                    int purchaseId
+    ) {
         return purchaseService.getByPurchase(purchaseId)
                 .map(purchase -> new ResponseEntity<>(purchase, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Purchase> save(@RequestBody Purchase purchase) {
+    @ApiOperation("Save new purchase")
+    @ApiResponse(code = 200, message = "Purchase saved successfully")
+    public ResponseEntity<Purchase> save(
+            @ApiParam(value = "JSON of the purchase", required = true)
+            @RequestBody
+                    Purchase purchase
+    ) {
         return new ResponseEntity<>(purchaseService.save(purchase), HttpStatus.CREATED);
     }
 
