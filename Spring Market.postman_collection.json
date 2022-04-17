@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "92eb39bb-ceea-4e6e-b449-5753a7a7a111",
+		"name": "Spring Market",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Show All",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9898/market/api/products/show/all",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"products",
+								"show",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show By Product ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9898/market/api/products/show/{id}",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"products",
+								"show",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show By Category ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9898/market/api/products/show/category/{id}",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"products",
+								"show",
+								"category",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:9898/market/api/products/new",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"products",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9898/market/api/products/delete/{id}",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"products",
+								"delete",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase",
+			"item": [
+				{
+					"name": "Show All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9898/market/api/purchases/show/all",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"purchases",
+								"show",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show By Client ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9898/market/api/purchases/show/client/4546221",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"purchases",
+								"show",
+								"client",
+								"4546221"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show By Purchase ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9898/market/api/purchases/show/purchase/3",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"purchases",
+								"show",
+								"purchase",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Purchase",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"clientId\": \"4546221\",\r\n        \"date\": \"2020-08-10T17:30:00\",\r\n        \"paymentMethod\": \"T\",\r\n        \"comment\": \"\",\r\n        \"status\": \"P\",\r\n        \"items\": [\r\n            {\r\n                \"productId\": 8,\r\n                \"quantity\": 6,\r\n                \"total\": 5300.0,\r\n                \"active\": true\r\n            },\r\n            {\r\n                \"productId\": 7,\r\n                \"quantity\": 6,\r\n                \"total\": 64400.0,\r\n                \"active\": true\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9898/market/api/purchases/new",
+							"host": [
+								"localhost"
+							],
+							"port": "9898",
+							"path": [
+								"market",
+								"api",
+								"purchases",
+								"new"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
