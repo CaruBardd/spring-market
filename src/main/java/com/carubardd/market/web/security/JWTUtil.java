@@ -3,10 +3,12 @@ package com.carubardd.market.web.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-public class JTWUtil {
+@Component
+public class JWTUtil {
 
     private static final String KEY = "M@rket";
 
